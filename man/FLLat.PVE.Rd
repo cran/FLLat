@@ -12,9 +12,9 @@
   which can be used for choosing the value of \eqn{J}.}
 
 \usage{
-FLLat.PVE(Y, J.seq=seq(1,min(15,floor(ncol(Y)/2)),by=2),
-          B=c("pc","rand"), lams=c("same","diff"), thresh=10^(-4),
-          maxiter=100, maxiter.B=1, maxiter.T=1)
+FLLat.PVE(Y, J.seq=seq(1,min(15,floor(ncol(Y)/2)),by=2), B=c("pc","rand"),
+          lams=c("same","diff"), thresh=10^(-4), maxiter=100, maxiter.B=1,
+          maxiter.T=1)
 
 \method{plot}{PVE}(x, xlab="Number of Features", ylab="PVE", \dots)
 }
@@ -66,12 +66,12 @@ FLLat.PVE(Y, J.seq=seq(1,min(15,floor(ncol(Y)/2)),by=2),
   model for each value of \eqn{J}.
 
   There are two choices for how the tuning parameters are chosen when
-  fitting the FLLat model for each value of \eqn{J}.  The first choice, given
-  by \code{lams="same"}, applies the \code{\link{FLLat.BIC}} function
-  just once for the default value of \eqn{J}.  The resulting optimal
-  tuning parameters are used for all values of \eqn{J} in \code{J.seq}.
-  The second choice, given by \code{lams="diff"}, applies the
-  \code{\link{FLLat.BIC}} function for each value of \eqn{J} in
+  fitting the FLLat model for each value of \eqn{J}.  The first choice,
+  given by \code{lams="same"}, applies the \code{\link{FLLat.BIC}}
+  function just once for the default value of \eqn{J}.  The resulting
+  optimal tuning parameters are used for all values of \eqn{J} in
+  \code{J.seq}.  The second choice, given by \code{lams="diff"}, applies
+  the \code{\link{FLLat.BIC}} function for each value of \eqn{J} in
   \code{J.seq}.  Although this second choice will give a more accurate
   measure of the PVE, it will take much longer to run than the first
   choice.

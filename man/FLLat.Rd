@@ -9,8 +9,8 @@
   \eqn{\lambda_2} (the two fused lasso tuning parameters).}
 
 \usage{
-FLLat(Y, J=min(15,floor(ncol(Y)/2)), B="pc", lam1, lam2,
-      thresh=10^(-4), maxiter=100, maxiter.B=1, maxiter.T=1)
+FLLat(Y, J=min(15,floor(ncol(Y)/2)), B="pc", lam1, lam2, thresh=10^(-4),
+      maxiter=100, maxiter.B=1, maxiter.T=1)
 }
 
 \arguments{
@@ -25,9 +25,9 @@ FLLat(Y, J=min(15,floor(ncol(Y)/2)), B="pc", lam1, lam2,
   columns of \code{Y}), or a user specified matrix of initial values,
   where rows correspond to the probes and columns correspond to the
   features.  The default is \code{"pc"}.}
-  \item{lam1}{\eqn{\lambda_1}, the tuning parameter in the fused lasso
+  \item{lam1}{The tuning parameter \eqn{\lambda_1} in the fused lasso
   penalty that controls the level of sparsity in the features.}
-  \item{lam2}{\eqn{\lambda_2}, the tuning parameter in the fused lasso
+  \item{lam2}{The tuning parameter \eqn{\lambda_2} in the fused lasso
   penalty that controls the level of smoothness in the features.}
   \item{thresh}{The threshold for determining when the solutions have
   converged.  The default is \eqn{10^{-4}}{10^(-4)}.}
@@ -48,7 +48,7 @@ FLLat(Y, J=min(15,floor(ncol(Y)/2)), B="pc", lam1, lam2,
   multi-sample aCGH data, as described in Nowak and others (2011), for
   given values of \eqn{J}, \eqn{\lambda_1} and \eqn{\lambda_2}.  Given
   aCGH data consisting of \eqn{S} samples and \eqn{L} probes, the model
-  is given by: \deqn{Y=B\Theta,} where \eqn{Y} is an \eqn{L} by \eqn{S}
+  is given by: \deqn{Y=B\Theta,}{B*\Theta} where \eqn{Y} is an \eqn{L} by \eqn{S}
   matrix denoting the aCGH data (with samples in columns), \eqn{B} is a
   \eqn{L} by \eqn{J} matrix denoting the features (with features in
   columns), and \eqn{\Theta} is a \eqn{J} by \eqn{S} matrix denoting the
@@ -64,8 +64,8 @@ FLLat(Y, J=min(15,floor(ncol(Y)/2)), B="pc", lam1, lam2,
   \lambda_1\sum_{l=1}^L\left|\beta_{lj}\right| +
   \lambda_2\sum_{l=2}^L\left|\beta_{lj} -
   \beta_{l-1,j}\right|.}{PEN_j = \lambda_1*sum_{l = 1 to L}
-  abs[\beta_{l,j}] + \lambda_2*sum_{l = 1 to L-1} abs[\beta_{l,j} -
-  \beta_{l-1,j}].}  Here \eqn{\beta_{lj}}{\beta_{l,j}} denotes the
+  |\beta_{l,j}| + \lambda_2*sum_{l = 1 to L-1} |\beta_{l,j} -
+  \beta_{l-1,j}|.}  Here \eqn{\beta_{lj}}{\beta_{l,j}} denotes the
   \eqn{(l,j)^{th}}{(l,j)th} element of \eqn{B}.  We also constrain the \eqn{L_2}
   norm of each row of \eqn{\Theta} to be less than or equal to 1.
   
@@ -77,9 +77,11 @@ FLLat(Y, J=min(15,floor(ncol(Y)/2)), B="pc", lam1, lam2,
   \item{Beta}{The estimated features \eqn{B}.}
   \item{Theta}{The estimated weights \eqn{\Theta}.}
   \item{niter}{The number of outer iterations taken by the algorithm.}
-  \item{rss}{The residual some of squares of the fitted model.}
+  \item{rss}{The residual sum of squares of the fitted model.}
   \item{bic}{The BIC for the fitted model.  See \code{\link{FLLat.BIC}}
     for more details.}
+  \item{lam1}{The value of \eqn{\lambda_1} used in the model.}
+  \item{lam2}{The value of \eqn{\lambda_2} used in the model.}
   There is a \code{\link{plot}} method for \code{FLLat} objects.
 }
 

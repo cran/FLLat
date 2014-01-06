@@ -10,8 +10,8 @@
   optimal values of the tuning parameters.}
 
 \usage{
-FLLat.BIC(Y, J=min(15,floor(ncol(Y)/2)), B="pc", thresh=10^(-4),
-          maxiter=100, maxiter.B=1, maxiter.T=1)
+FLLat.BIC(Y, J=min(15,floor(ncol(Y)/2)), B="pc", thresh=10^(-4), maxiter=100,
+          maxiter.B=1, maxiter.T=1)
 }
 
 \arguments{

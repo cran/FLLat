@@ -56,35 +56,52 @@ extern "C" {
       niter++;
     }
 
-    SEXP Rniter = R_NilValue, rss = R_NilValue, bic = R_NilValue;
+    SEXP Rniter = R_NilValue, rss = R_NilValue, bic = R_NilValue,
+      retlam1 = R_NilValue, retlam2 = R_NilValue;
+    // The RSS.
     PROTECT(rss = allocVector(REALSXP,1));
     nProt++;
     REAL(rss)[0] = LatRSS(pY,pnewB,pnewT,S,L,J);
+    // The BIC.
     PROTECT(bic = allocVector(REALSXP,1));
     nProt++;
     REAL(bic)[0] = LatBIC(REAL(rss)[0],pnewB,S,L,J);
+    // The number of iterations.
     PROTECT(Rniter = allocVector(INTSXP,1));
     nProt++;
     INTEGER(Rniter)[0] = niter;
+    // Lambda 1.
+    PROTECT(retlam1 = allocVector(REALSXP,1));
+    nProt++;
+    REAL(retlam1)[0] = rlam1;
+    // Lambda 2.
+    PROTECT(retlam2 = allocVector(REALSXP,1));
+    nProt++;
+    REAL(retlam2)[0] = rlam2;
+
 
     //The results.
     SEXP res = R_NilValue, resNames = R_NilValue, resClass = R_NilValue;
     //The list of output variables.
-    PROTECT(res = allocVector(VECSXP,5));
+    PROTECT(res = allocVector(VECSXP,7));
     nProt++;
     SET_VECTOR_ELT(res,0,newB);
     SET_VECTOR_ELT(res,1,newT);
     SET_VECTOR_ELT(res,2,Rniter);
     SET_VECTOR_ELT(res,3,rss);
     SET_VECTOR_ELT(res,4,bic);
+    SET_VECTOR_ELT(res,5,retlam1);
+    SET_VECTOR_ELT(res,6,retlam2);
     //The list of output variable names.
-    PROTECT(resNames =allocVector(STRSXP,5));
+    PROTECT(resNames =allocVector(STRSXP,7));
     nProt++;
     SET_STRING_ELT(resNames,0,mkChar("Beta"));
     SET_STRING_ELT(resNames,1,mkChar("Theta"));
     SET_STRING_ELT(resNames,2,mkChar("niter"));
     SET_STRING_ELT(resNames,3,mkChar("rss"));
     SET_STRING_ELT(resNames,4,mkChar("bic"));
+    SET_STRING_ELT(resNames,5,mkChar("lam1"));
+    SET_STRING_ELT(resNames,6,mkChar("lam2"));
     //Setting the names to the output variables.
     setAttrib(res,R_NamesSymbol,resNames);
     //Setting the class to the output list.

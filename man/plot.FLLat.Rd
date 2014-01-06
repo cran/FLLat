@@ -8,9 +8,8 @@
   an object of class \code{FLLat}.}
 
 \usage{
-\method{plot}{FLLat}(x, what=c("features","weights"), f.mar=c(5,3,4,2),
-     f.xlab="Probe", w.mar=c(3,5,0,2), samp.names=1:ncol(x$Theta),
-     hc.meth="complete", \dots)
+\method{plot}{FLLat}(x, what=c("features","weights"), f.mar=c(5,3,4,2), f.xlab="Probe",
+     w.mar=c(3,5,0,2), samp.names=1:ncol(x$Theta), hc.meth="complete", \dots)
 }
 
 \arguments{
