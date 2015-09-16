@@ -27,4 +27,3 @@ FLLat <- function(Y,J=min(15,floor(ncol(Y)/2)),B="pc",lam1,lam2,
   return(result)
 
 }
-

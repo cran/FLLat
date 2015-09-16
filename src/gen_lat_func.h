@@ -157,7 +157,7 @@ void UpdateBC(double* pnewB, double* pY, double* pT, double* pTSqRS,
 
 /***********************************************************************/
 //The function TLatL2C estimates the value of the Theta matrix for a
-//given Beta matrix.  Arguments:
+//given Beta matrix and returns the number of iterations.  Arguments:
 //pnewT - The current Theta which will be updated. 
 //pY - The data matrix.
 //pB - The current Beta matrix.
@@ -168,7 +168,7 @@ void UpdateBC(double* pnewB, double* pY, double* pT, double* pTSqRS,
 //L - Number of chromosomal locations.
 //J - Number of latent features.
 /***********************************************************************/
-void TLatL2C(double* pnewT, double* pY, double* pB, double rthresh,
+int TLatL2C(double* pnewT, double* pY, double* pB, double rthresh,
 	     int imaxiter, double rsT, int S, int L, int J);
 
 /***********************************************************************/

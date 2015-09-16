@@ -2,7 +2,8 @@
 
 \alias{FLLat.BIC}
 
-\title{Tuning Function for the Fused Lasso Latent Feature Model}
+\title{Optimal Tuning Parameters for the Fused Lasso Latent Feature
+  Model}
 
 \description{Returns the optimal values of the fused lasso tuning
   parameters for the Fused Lasso Latent Feature (FLLat) model by
@@ -19,30 +20,32 @@ FLLat.BIC(Y, J=min(15,floor(ncol(Y)/2)), B="pc", thresh=10^(-4), maxiter=100,
   of log intensity ratios) or some other type of copy number data.  Rows
   correspond to the probes and columns correspond to the samples.}
   \item{J}{The number of features in the FLLat model.  The default is
-  the minimum of 15 and the number of samples divided by 2.}
-  \item{B}{The initial values for the features.  Can be one of "pc" (the
-  first \var{J} principal components of \var{Y}), "rand" (a random
-  selection of \var{J} columns of \var{Y}), or a user specified matrix
-  of initial values, where rows correspond to the probes and columns
-  correspond to the features.  The default is "pc".}
+  the smaller of either \eqn{15} or the number of samples divided by
+  \eqn{2}.}
+  \item{B}{The initial values for the features.  Can be one of
+  \code{"pc"} (the first \code{J} principal components of \code{Y}),
+  \code{"rand"} (a random selection of \code{J} columns of \code{Y}), or
+  a user specified matrix of initial values, where rows correspond to
+  the probes and columns correspond to the features.  The default is
+  \code{"pc"}.}
   \item{thresh}{The threshold for determining when the solutions have
-  converged.  The default is \eqn{10^{-4}}.}
-  \item{maxiter}{The maximum number of outer iterations for the FLLat
-  algorithm.  The default is 100.}
+  converged.  The default is \eqn{10^{-4}}{10^(-4)}.}
+  \item{maxiter}{The maximum number of iterations for the outer loop of
+  the FLLat algorithm.  The default is \eqn{100}.}
   \item{maxiter.B}{The maximum number of iterations for the inner loop
   of the FLLat algorithm for estimating the features \eqn{B}.  The default is
-  1.  Increasing this may decrease the number of outer iterations but
-  may still increase total run time.}
+  \eqn{1}.  Increasing this may decrease the number of iterations for the
+  outer loop but may still increase total run time.}
   \item{maxiter.T}{The maximum number of iterations for the inner loop
   of the FLLat algorithm for estimating the weights \eqn{\Theta}.  The default
-  is 1.  Increasing this may decrease the number of outer iterations but
-  may still increase total run time.}
+  is \eqn{1}.  Increasing this may decrease the number of iterations for the
+  outer loop but may still increase total run time.}
 }
 
 \details{
   This function returns the optimal values of the fused lasso tuning
-  parameters, \eqn{\lambda_1} and \eqn{\lambda_2}, for the Fused Lasso
-  Latent Feature (FLLat) model.  The optimal values are chosen by first
+  parameters, \eqn{\lambda_1} and \eqn{\lambda_2}, for the FLLat model.
+  The optimal values are chosen by first
   re-parameterizing \eqn{\lambda_1} and \eqn{\lambda_2} in terms of
   \eqn{\lambda_0} and a proportion \eqn{\alpha} such that
   \eqn{\lambda_1=\alpha\lambda_0}{\lambda_1=\alpha*\lambda_0} and
@@ -53,7 +56,7 @@ FLLat.BIC(Y, J=min(15,floor(ncol(Y)/2)), B="pc", thresh=10^(-4), maxiter=100,
   values.  The optimal values of \eqn{\lambda_0} and \eqn{\alpha} (and
   consequently \eqn{\lambda_1} and \eqn{\lambda_2}) are chosen by
   minimizing the following BIC-type criterion over this two dimensional grid:
-  \deqn{(SL)\cdot\log\left(\frac{RSS}{SL}\right) +
+  \deqn{(SL)\times\log\left(\frac{RSS}{SL}\right) +
   k_{\alpha,\lambda_0}\log(SL),}{(SL)*log(RSS/(SL)) +
   k_{\alpha, \lambda_0}*log(SL),} where \eqn{S} is the number of samples,
   \eqn{L} is the number probes, \eqn{RSS} denotes the residual sum of
@@ -99,9 +102,5 @@ result.bic <- FLLat.BIC(simaCGH,J=5)
 plot(result.bic$opt.FLLat)
 
 ## Plot a heatmap of the weights for the optimal FLLat model.
-plot(result.bic$opt.FLLat,what="weights")
+plot(result.bic$opt.FLLat,type="weights")
 }
-
-\keyword{models}
-\keyword{multivariate}
-\keyword{lasso}

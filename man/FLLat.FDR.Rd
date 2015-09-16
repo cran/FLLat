@@ -3,15 +3,14 @@
 \alias{FLLat.FDR}
 \alias{plot.FDR}
 
-\title{Function for Estimating the False Discovery Rate for the Fused
-  Lasso Latent Feature Model}
+\title{False Discovery Rate for the Fused Lasso Latent Feature Model}
 
 \description{Estimates the false discovery rate (FDR) over a range of
   threshold values for a fitted Fused Lasso Latent Feature (FLLat)
   model.  Also plots the FDRs against the threshold values.}
 
 \usage{
-FLLat.FDR(Y, FLLat.fit, n.thresh=50, fdr.control=0.05, pi0=1, n.perms=20)
+FLLat.FDR(Y, Y.FLLat, n.thresh=50, fdr.control=0.05, pi0=1, n.perms=20)
 
 \method{plot}{FDR}(x, xlab="Threshold", ylab="FDR", \dots)
 }
@@ -20,30 +19,31 @@ FLLat.FDR(Y, FLLat.fit, n.thresh=50, fdr.control=0.05, pi0=1, n.perms=20)
   \item{Y}{A matrix of data from an aCGH experiment (usually in the form
   of log intensity ratios) or some other type of copy number data.  Rows
   correspond to the probes and columns correspond to the samples.}
-  \item{FLLat.fit}{A FLLat model fitted to \code{Y}.  That is, an object
+  \item{Y.FLLat}{A FLLat model fitted to \code{Y}.  That is, an object
   of class \code{FLLat}, as returned by \code{\link{FLLat}}.}
   \item{n.thresh}{The number of threshold values at which to estimate
-  the FDR.  The default is 50.}
+  the FDR.  The default is \eqn{50}.}
   \item{fdr.control}{A value at which to control the FDR.  The function
   will return the smallest threshold value which controls the FDR at the
-  specified value.  The default is 0.05.}
+  specified value.  The default is \eqn{0.05}.}
   \item{pi0}{The proportion of true null hypotheses.  For probe location
   \eqn{l} in sample \eqn{s}, the null hypothesis \eqn{H_0(l,s)} states
   that there is no copy number variation at that location.  The default
-  is 1.}
+  is \eqn{1}.}
   \item{n.perms}{The number of permutations of the aCGH data used in
-  estimating the FDRs.  The default is 20.}
+  estimating the FDRs.  The default is \eqn{20}.}
   \item{x}{An object of class \code{FDR}, as returned by
   \code{\link{FLLat.FDR}}.}
-  \item{xlab}{The title for the x axis of the FDR plot.}
-  \item{ylab}{The title for the y axis of the FDR plot.}
+  \item{xlab}{The title for the \eqn{x}-axis of the FDR plot.}
+  \item{ylab}{The title for the \eqn{y}-axis of the FDR plot.}
   \item{\dots}{Further graphical parameters.}
 }
   
-\details{Identifying regions of copy number variation (CNV) in aCGH data
-  can be viewed in a multiple-testing framework.  For each probe within
-  each sample, we are essentially testing the hypothesis \eqn{H_0(l,s)}
-  that there is no CNV at probe location \eqn{l} for sample \eqn{s}.
+\details{
+  Identifying regions of copy number variation (CNV) in aCGH data
+  can be viewed in a multiple-testing framework.  For each probe
+  location \eqn{l} within sample \eqn{s}, we are essentially testing the
+  hypothesis \eqn{H_0(l,s)} that there is no CNV at that location.
   The decision to reject each hypothesis can be based on the fitted
   values \eqn{\hat{Y}=\hat{B}\hat{\Theta}} produced by the FLLat model.
   Specifically, for a given threshold value \eqn{T}, we can declare
@@ -53,7 +53,7 @@ FLLat.FDR(Y, FLLat.fit, n.thresh=50, fdr.control=0.05, pi0=1, n.perms=20)
 
   The FDR for a fitted FLLat model is estimated in the following
   manner.  Firstly, \code{n.thresh} threshold values are chosen, equally
-  spaced between 0 and the largest absolute fitted value over all
+  spaced between \eqn{0} and the largest absolute fitted value over all
   locations \eqn{(l,s)}.  Then, for each threshold value, the estimated
   FDR is equal to \deqn{FDR=\frac{\pi_0\times
       V_0}{R}}{FDR=(pi_0*V_0)/R} where:
@@ -62,11 +62,11 @@ FLLat.FDR(Y, FLLat.fit, n.thresh=50, fdr.control=0.05, pi0=1, n.perms=20)
     from the fitted FLLat model, as described above.
     \item The quantity \eqn{V_0} is the number of declared CNVs
     calculated from re-fitting the FLLat model to permuted versions of the
-    data \code{Y}.  In each permuted data set, the probe locations
+    data \eqn{Y}.  In each permuted data set, the probe locations
     within each sample are permuted to approximate the null distribution
     of the data.
     \item The quantity \eqn{\pi_0} is the proportion of true null
-    hypotheses.  The default value of 1 will result in conservative
+    hypotheses.  The default value of \eqn{1} will result in conservative
     estimates of the FDR.  If warranted, smaller values of \eqn{\pi_0}
     can be specified.
   }
@@ -114,7 +114,3 @@ plot(result.fdr)
 ## The threshold value which controls the FDR at 0.05.
 result.fdr$thresh.control
 }
-
-\keyword{models}
-\keyword{multivariate}
-\keyword{lasso}

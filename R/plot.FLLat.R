@@ -1,8 +1,12 @@
-plot.FLLat <- function(x,what=c("features","weights"),f.mar=c(5,3,4,2),
+plot.FLLat <- function(x,type=c("features","weights"),f.mar=c(5,3,4,2),
                        f.xlab="Probe",w.mar=c(3,5,0,2),
                        samp.names=1:ncol(x$Theta),hc.meth="complete",...) {
 
-  what <- match.arg(what)
+    if (!inherits(x,"FLLat")) {
+        stop("'x' must be of class 'FLLat'")
+    }
+        
+  type <- match.arg(type)
   J <- ncol(x$Beta)
   L <- nrow(x$Beta)
   S <- ncol(x$Theta)
@@ -10,7 +14,7 @@ plot.FLLat <- function(x,what=c("features","weights"),f.mar=c(5,3,4,2),
   B.css <- colSums(x$Beta^2)
   B.po <- order(B.css,decreasing=T)
 
-  if (what=="features") {
+  if (type=="features") {
     T.ra <- rowMeans(x$Theta)
     y.range <- range(t(x$Beta)*sign(T.ra))
 

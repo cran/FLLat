@@ -1,6 +1,8 @@
 /*************************************************************************/
-//This file contains the C function for running the Latent Feature Model
-//under the L2 constraint.
+//This file contains LatL2C, the C function for running the Latent Feature
+//Model under the L2 constraint, and TLatL2CR, the C function for
+//calculating the Theta matrix for a new sample(s) when given the Beta
+//matrix (i.e., a wrapper for TLatL2C that can be called easily from R).
 /*************************************************************************/
 
 #include <cmath>
@@ -79,7 +81,6 @@ extern "C" {
     nProt++;
     REAL(retlam2)[0] = rlam2;
 
-
     //The results.
     SEXP res = R_NilValue, resNames = R_NilValue, resClass = R_NilValue;
     //The list of output variables.
@@ -114,6 +115,58 @@ extern "C" {
     delete [] perrTs;
     delete [] poldB;
     delete [] poldT;
+    UNPROTECT(nProt);
+    return(res);
+
+  }
+
+
+  SEXP TLatL2CR(SEXP Y, SEXP B, SEXP inT, SEXP thresh, SEXP maxiterT,
+		SEXP sT) {
+
+    int nProt = 0;
+    double *pY = REAL(Y), *pB = REAL(B), *pinT = REAL(inT),
+      rthresh = REAL(thresh)[0], rsT = REAL(sT)[0];
+    int imaxiterT = INTEGER(maxiterT)[0];
+    R_len_t S = ncols(Y), L = nrows(Y), J = ncols(B);
+
+    // Initializing Theta.
+    SEXP newT = R_NilValue;
+    PROTECT(newT = allocMatrix(REALSXP,J,S));
+    nProt++;
+    double *pnewT = REAL(newT);
+    CopyAtoB(pinT,pnewT,J*S);
+
+    // Calculating Theta.
+    int niter = TLatL2C(pnewT,pY,pB,rthresh,imaxiterT,rsT,S,L,J);
+    
+    SEXP Rniter = R_NilValue, rss = R_NilValue;
+    // The RSS.
+    PROTECT(rss = allocVector(REALSXP,1));
+    nProt++;
+    REAL(rss)[0] = LatRSS(pY,pB,pnewT,S,L,J);
+    // The number of iterations.
+    PROTECT(Rniter = allocVector(INTSXP,1));
+    nProt++;
+    INTEGER(Rniter)[0] = niter;
+    
+    // The results.
+    SEXP res = R_NilValue, resNames = R_NilValue;
+    // The list of output variables.
+    PROTECT(res = allocVector(VECSXP,3));
+    nProt++;
+    SET_VECTOR_ELT(res,0,newT);
+    SET_VECTOR_ELT(res,1,Rniter);
+    SET_VECTOR_ELT(res,2,rss);
+    // The list of output variable names.
+    PROTECT(resNames = allocVector(STRSXP,3));
+    nProt++;
+    SET_STRING_ELT(resNames,0,mkChar("Theta"));
+    SET_STRING_ELT(resNames,1,mkChar("niter"));
+    SET_STRING_ELT(resNames,2,mkChar("rss"));
+    // Setting the names to the output variables.
+    setAttrib(res,R_NamesSymbol,resNames);
+
     UNPROTECT(nProt);
     return(res);
 

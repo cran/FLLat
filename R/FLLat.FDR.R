@@ -1,21 +1,21 @@
-FLLat.FDR <- function(Y,FLLat.fit,n.thresh=50,fdr.control=0.05,pi0=1,
+FLLat.FDR <- function(Y,Y.FLLat,n.thresh=50,fdr.control=0.05,pi0=1,
                       n.perms=20) {
 
     ## Error checking.
     if (!all(is.matrix(Y),is.double(Y))) {
-        stop("'Y' must be a numeric matrix of type double")
+        stop("'Y' must be a numeric matrix")
     }
-    if (!is(FLLat.fit,"FLLat")) {
-        stop("'FLLat.fit' must be of class 'FLLat'")
+    if (!inherits(Y.FLLat,"FLLat")) {
+        stop("'Y.FLLat' must be of class 'FLLat'")
     }
     if (!all(length(n.thresh)==1,n.thresh>0)) {
         stop("'n.thresh' must be an integer > 0")
     }
     if (!all(length(fdr.control)==1,fdr.control>0,fdr.control<=1)) {
-        stop("'fdr.control' must be a scalar between 0 and 1")
+        stop("'fdr.control' must be a real number between 0 and 1")
     }
     if (!all(length(pi0)==1,pi0>0,pi0<=1)) {
-        stop("'pi0' must be a scalar between 0 and 1")
+        stop("'pi0' must be a real number between 0 and 1")
     }
     if (!all(length(n.perms)==1,n.perms>0)) {
         stop("'n.perms' must be an integer > 0")
@@ -24,13 +24,13 @@ FLLat.FDR <- function(Y,FLLat.fit,n.thresh=50,fdr.control=0.05,pi0=1,
     ## S, L and J.
     S <- ncol(Y)
     L <- nrow(Y)
-    J <- ncol(FLLat.fit$Beta)
+    J <- ncol(Y.FLLat$Beta)
 
     ## Lambda1 and lambda2.
-    lam1 <- FLLat.fit$lam1; lam2 <- FLLat.fit$lam2
+    lam1 <- Y.FLLat$lam1; lam2 <- Y.FLLat$lam2
 
     ## Threshold values for which to estimate FDRs.
-    pos.fit <- abs(FLLat.fit$Beta%*%FLLat.fit$Theta) 
+    pos.fit <- abs(Y.FLLat$Beta%*%Y.FLLat$Theta) 
     thresh.vals <- seq(0,max(pos.fit),len=n.thresh+1)[-1]
 
     ## The denominator values for the FDR estimates.
