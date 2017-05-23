@@ -1,4 +1,4 @@
-useDynLib(FLLat,LatL2C,TLatL2CR)
+useDynLib(FLLat,.registration=TRUE,.fixes="C_")
 importFrom(graphics,axis,frame,image,layout,par,plot)
 importFrom(stats,as.dendrogram,as.dist,cor,hclust)
 importFrom(gplots,colorpanel)

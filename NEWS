@@ -1,3 +1,11 @@
+Version 1.2-1  2017-05-23
+-----------------------------------------------------------------
+* Registered native routines.
+* Declared use of std namespace for sqrt, fabs and log functions.
+* Fixed potential PROTECT errors.
+* Slightly changed the example in the FLLat.PVE help file to
+  reduce example run time.
+
 Version 1.2  2015-09-16
 -----------------------------------------------------------------
 * Added the function predict.FLLat which calculates fitted values
@@ -6,7 +14,7 @@ Version 1.2  2015-09-16
 * Updated the package vignette with examples of using the
   predict.FLLat function.
 * Changed an argument name from FLLat.fit to Y.FLLat in the
-  FLLat.FDR function for consistency
+  FLLat.FDR function for consistency.
 * General tidying up of help files for package functions.
 
 Version 1.1  2014-01-06

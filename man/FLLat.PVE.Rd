@@ -107,8 +107,8 @@ FLLat.PVE(Y, J.seq=seq(1,min(15,floor(ncol(Y)/2)),by=2), B=c("pc","rand"),
 ## Load simulated aCGH data.
 data(simaCGH)
 
-## Generate PVEs for J ranging from 1 to the number of samples.
-result.pve <- FLLat.PVE(simaCGH,J.seq=1:ncol(simaCGH))
+## Generate PVEs for J ranging from 1 to the number of samples divided by 2.
+result.pve <- FLLat.PVE(simaCGH,J.seq=1:(ncol(simaCGH)/2))
 
 ## Generate PVE plot.
 plot(result.pve)

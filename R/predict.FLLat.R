@@ -39,7 +39,7 @@ predict.FLLat <- function(object,newY=NULL,thresh=10^(-4),maxiter.T=100,...) {
         old.T <- matrix(0,nrow=ncol(B),ncol=ncol(newY))
 
         ## Calculating predicted weights for newY.
-        result <- .Call(TLatL2CR,newY,B,old.T,as.double(thresh),
+        result <- .Call(C_TLatL2CR,newY,B,old.T,as.double(thresh),
                         as.integer(maxiter.T),as.double(sT))
 
         ## Predicted Y values.

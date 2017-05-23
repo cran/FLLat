@@ -9,7 +9,7 @@
 /*************************************************************************/
 
 /*************************************************************************/
-//The function CopyAtoB() copies matrix A to matrix B.
+//Copies matrix A to matrix B.
 //Arguments:
 //pA - Pointer to matrix A.
 //pB - Pointer to matrix B.
@@ -18,8 +18,7 @@
 void CopyAtoB(double* pA, double* pB, int nel);
 
 /*************************************************************************/
-//The function SqColSums() takes a matrix of reals and returns the column
-//sums of the squared matrix. 
+//For a matrix of reals, returns the column sums of the squared values.
 //Arguments:
 //pmat - Pointer to a matrix.
 //pmatSqCS - Pointer to the array of column sums.
@@ -29,8 +28,7 @@ void CopyAtoB(double* pA, double* pB, int nel);
 void SqColSums(double* pmat, double* pmatSqCS, int nr, int nc); 
 
 /*************************************************************************/
-//The function SqRowSums() takes a matrix of reals and returns the row
-//sums of the squared matrix.
+//For a matrix of reals, returns the row sums of the squared values.
 //Arguments:
 //pmat - Pointer to a matrix.
 //pmatSqRS - Pointer to the array of row sums.
@@ -40,8 +38,7 @@ void SqColSums(double* pmat, double* pmatSqCS, int nr, int nc);
 void SqRowSums(double* pmat, double* pmatSqRS, int nr, int nc);
 
 /*************************************************************************/
-//The function SqTotSum() takes a matrix of reals and returns the total
-//sum of the elements of the squared matrix. 
+//For a matrix of reals, and returns the total sum of the squared values.
 //Arguments:
 //pmat - Pointer to a matrix.
 //nel - Total number of elements.
@@ -49,9 +46,9 @@ void SqRowSums(double* pmat, double* pmatSqRS, int nr, int nc);
 double SqTotSum(double* pmat, int nel);
 
 /*************************************************************************/
-//The function MatErr() takes pointers to two matrices, poldMat and
-//pnewMat, and calculates the square root of the Frobeniuus norm of the
-//difference divided by the square root of the Frobenius norm of oldMat.
+//Takes pointers to two matrices, poldMat and pnewMat, and calculates the
+//square root of the Frobeniuus norm of the difference divided by the
+//square root of the Frobenius norm of oldMat.
 //Arguments:
 //pnewMat - Pointer to the new matrix.
 //poldMat - Pointer to the old matrix.
@@ -62,10 +59,10 @@ double SqTotSum(double* pmat, int nel);
 double MatErr(double* pnewMat, double* poldMat, int nel, double thresh);
 
 /*************************************************************************/
-//The fuction SoftThresh() applies soft threshholds val by thresh.
+//Soft threshholds val by thresh.
 //Arguments:
 //val - What we want to soft threshold.
-//thresh - Thet value we are soft thresholding by.
+//thresh - Thet value by which we are soft thresholding.
 /*************************************************************************/
 double SoftThresh(double val, double thresh);
 
@@ -77,7 +74,7 @@ double SoftThresh(double val, double thresh);
 /*************************************************************************/
 
 /*************************************************************************/
-//The function MakeTldY() creates the the vector of \tilde{Y}_j.
+//Creates the the vector of \tilde{Y}_j.
 //Arguments:
 //pnewY - Poimter to array of \tilde{Y}_j.
 //pY - Pointer to the original data matrix.
@@ -92,7 +89,7 @@ void MakeTldY(double* ptldY, double* pY, double* pB, double* pnewT,
 	      int j, int S, int L, int J);
 
 /*************************************************************************/
-//The function MakeGrvY() creates the the vector of \grave{Y}_j.
+//Creates the the vector of \grave{Y}_j.
 //Arguments:
 //pgrvY - Poimter to array of \grave{Y}_j.
 //pY - Pointer to the original data matrix.
@@ -108,7 +105,7 @@ void MakeGrvY(double* pgrvY, double* pY, double* pT, double* pnewB,
 	      double* pTSqRS, int j, int S, int L, int J);
 
 /*************************************************************************/
-//The function BTljsSum() calculates \sum_{k\ne j}\beta_{lk}\theta_{ks}.
+//Calculates \sum_{k\ne j}\beta_{lk}\theta_{ks}.
 //Arguments:
 //pB - Pointer to Beta.
 //pT - Pointer to Theta.
@@ -123,8 +120,8 @@ double BTljsSum(double* pB, double* pT, int s, int l, int j, int S, int L,
 		int J);
 
 /*************************************************************************/
-//The function BC() estimates the value of the Beta matrix for a given
-//Theta matrix.  Arguments:
+//Estimates the value of the Beta matrix for a given Theta matrix.
+//Arguments:
 //pnewB - The current Beta which will become updated.
 //pY - Pointer to the data matrix.
 //pT - Pointer to the current Theta matrix.
@@ -140,7 +137,7 @@ void BC(double* pnewB, double* pY, double* pT, double rlam1, double rlam2,
 	double rthresh, int imaxiter, int S, int L, int J);
 
 /************************************************************************/
-//The function UpdateBC() updates Beta.
+//Updates Beta.
 //Arguments:
 //pnewB - Pointer to the current Beta which will be updated.
 //pY - Pointer to the original data matrix.
@@ -156,8 +153,9 @@ void UpdateBC(double* pnewB, double* pY, double* pT, double* pTSqRS,
 	      double rlam1, double rlam2, int S, int L, int J);
 
 /***********************************************************************/
-//The function TLatL2C estimates the value of the Theta matrix for a
-//given Beta matrix and returns the number of iterations.  Arguments:
+//Estimates the value of the Theta matrix for a given Beta matrix and
+//returns the number of iterations.
+//Arguments:
 //pnewT - The current Theta which will be updated. 
 //pY - The data matrix.
 //pB - The current Beta matrix.
@@ -172,7 +170,7 @@ int TLatL2C(double* pnewT, double* pY, double* pB, double rthresh,
 	     int imaxiter, double rsT, int S, int L, int J);
 
 /***********************************************************************/
-//The function UpdateTLatL2C() updates Theta.
+//Updates Theta.
 //Arguments:
 //pnewT - The matrix which will become the updated Theta.
 //pY - Pointer to the original data matrix.
@@ -187,7 +185,7 @@ void UpdateTLatL2C(double* pnewT, double* pY, double* pB,
 		   double* pBSqCS, double rsT, int S, int L, int J);
 
 /************************************************************************/
-//The function LatRSS() calculates the residual sum of squares .
+//Calculates the residual sum of squares .
 //Arguments:
 //pY - Pointer to the original data matrix.
 //pB - Pointer to the current Beta matrix.
@@ -199,7 +197,7 @@ void UpdateTLatL2C(double* pnewT, double* pY, double* pB,
 double LatRSS(double* pY, double* pB, double* pT, int S, int L, int J);
 
 /************************************************************************/
-//The function LatBIC() calculates the BIC.
+//Calculates the BIC.
 //Arguments:
 //rss - The residual sum of squares.
 //pB - Pointer to the current Beta matrix.
@@ -208,5 +206,6 @@ double LatRSS(double* pY, double* pB, double* pT, int S, int L, int J);
 //J - Number of latent features.
 /************************************************************************/
 double LatBIC(double rss, double* pB, int S, int L, int J);
+
 
 #endif

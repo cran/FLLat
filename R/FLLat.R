@@ -20,7 +20,7 @@ FLLat <- function(Y,J=min(15,floor(ncol(Y)/2)),B="pc",lam1,lam2,
   old.T <- matrix(0,nrow=J,ncol=ncol(Y))
 
   ## Running FLLat.
-  result <- .Call(LatL2C,Y,as.integer(J),old.B,old.T,as.double(lam1),
+  result <- .Call(C_LatL2C,Y,as.integer(J),old.B,old.T,as.double(lam1),
                   as.double(lam2),as.double(thresh),as.integer(maxiter),
                   as.integer(maxiter.B),as.integer(maxiter.T),
                   as.double(sT))

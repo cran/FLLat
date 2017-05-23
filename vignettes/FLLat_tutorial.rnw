@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage{amsmath}
-\usepackage{fullpage}
+\usepackage[margin=1in]{geometry}
 \usepackage{bm}
 \usepackage[round]{natbib}
 %\VignetteIndexEntry{FLLat Tutorial}
@@ -102,7 +102,7 @@ a certain point, additional features will not significantly improve
 the estimated fit and the PVE will begin to flatten out.  We can then
 choose the point at which the PVE begins to flatten out as the
 appropriate value of $J$.  The code below runs \texttt{FLLat.PVE} on
-the data set \texttt{simaCGH} for $J=1,\ldots,20$ and also plots the
+the data set \texttt{simaCGH} for $J=1,\ldots,10$ and also plots the
 resulting PVEs:
 
 \begin{center}
@@ -110,7 +110,7 @@ resulting PVEs:
 <<fig=T>>=
 library(FLLat)
 data(simaCGH)
-result.pve <- FLLat.PVE(simaCGH,J.seq=1:ncol(simaCGH))
+result.pve <- FLLat.PVE(simaCGH,J.seq=1:(ncol(simaCGH)/2))
 plot(result.pve)
 @
 \end{center}
@@ -225,6 +225,7 @@ values.
 \begin{center}
 \setkeys{Gin}{width=0.6\textwidth}
 <<fig=T>>=
+set.seed(1364)
 result.fdr <- FLLat.FDR(simaCGH,result.bic$opt.FLLat)
 result.fdr$thresh.control
 plot(result.fdr)
